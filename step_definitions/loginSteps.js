@@ -21,7 +21,7 @@ Then('Admin should land on the login page', async ({ page }) => {
     await expect(loginpagefixture.image).toBeVisible()
     console.log("Image is Visible")
   });
-/*
+
 When('Admin gives the invalid LMS portal URL', async ({}) => {
     // Step: When Admin gives the invalid LMS portal URL
     // From: features\Login.feature:10:1
@@ -88,4 +88,4 @@ When('Admin gives the invalid LMS portal URL', async ({}) => {
     // Step: Then Admin should see password in gray color
     // From: features\Login.feature:72:1
   });
-  */
+  
