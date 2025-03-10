@@ -4,9 +4,9 @@ import { defineBddConfig } from 'playwright-bdd';
 
 const testDir = defineBddConfig({
   
-   features: 'features/*.feature',
-   steps: ['step_definitions/*.js','Hooks/hooks.js','Fixtures/fixtures.js']
- });
+  features: 'features/*.feature',
+  steps: ['step_definitions/*.js','Hooks/hooks.js','Fixtures/fixtures.js']
+});
 
  require('dotenv').config();
 
