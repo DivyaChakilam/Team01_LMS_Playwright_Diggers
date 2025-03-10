@@ -10,8 +10,15 @@ export const test=basetest.extend({
         const loginpagefixture=new Loginpage(page); 
         await use(loginpagefixture)
     },
+
+    ctx: async ({}, use) => {
+        const ctx = {};
+        await use(ctx);
+      },
+
     classpagefixture:async({page},use)=>{
         const classpagefixture=new ClassPage(page); 
         await use(classpagefixture)
     },
+
 })
