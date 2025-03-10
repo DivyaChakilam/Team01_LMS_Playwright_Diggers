@@ -5,9 +5,9 @@ import dotenv from 'dotenv'
 import path from 'path'
 const testDir = defineBddConfig({
   
-   features: 'features/*.feature',
-   steps: ['step_definitions/*.js','Hooks/hooks.js','Fixtures/fixtures.js']
- });
+  features: 'features/*.feature',
+  steps: ['step_definitions/*.js','Hooks/hooks.js','Fixtures/fixtures.js']
+});
 
  // Load environment variables from the .env file
 dotenv.config({ path: path.resolve(__dirname, '.env') });
