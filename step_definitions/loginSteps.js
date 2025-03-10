@@ -1,91 +1,165 @@
 import { expect } from '@playwright/test'
 import { createBdd } from 'playwright-bdd';
-import {test} from '../Fixtures/fixtures'
+import { test } from '../Fixtures/fixtures'
+import {records} from '../Utils/csvReader'
 
 const { Given, When, Then } = createBdd(test);
-//require('../Hooks/hooks.js'); 
 
-Given('The browser is open', async ({page}) => {
-    // Step: Given The browser is open
-    // From: features\Login.feature:4:1
+Given('The browser is open', async ({ page }) => {
+  // Step: Given The browser is open
+  // From: features\Login.feature:4:1
+});
+
+When('Admin gives the invalid LMS portal URL', async ({page}) => {
+  for(const record of records)
+  {
+    await page.goto(record.URL)
+    console.log("Navigated to the url:"+record.URL)
+  }
+});
+
+//bug
+Then('Admin should receive application error', async ({page}) => {
+  const dummyerrorlocator = page.locator('.error-message');
+  await expect(dummyerrorlocator).toBeVisible()
 });
 
 When('Admin gives the correct LMS portal URL', async ({ page }) => {
-    await page.goto(process.env.baseUrl)
+  await page.goto(process.env.baseUrl)
 });
+
 Then('Admin should land on the login page', async ({ page }) => {
-    await expect(page).toHaveURL(process.env.baseUrl)
-   
-  });
-  Then('Admin should see  LMS - Learning Management System', async ({loginpagefixture}) => {
-    await expect(loginpagefixture.image).toBeVisible()
-    console.log("Image is Visible")
-  });
+  await expect(page).toHaveURL(process.env.baseUrl)
+});
 
-When('Admin gives the invalid LMS portal URL', async ({}) => {
-    // Step: When Admin gives the invalid LMS portal URL
-    // From: features\Login.feature:10:1
-  });
-  
-  Then('Admin should receive application error', async ({}) => {
-    // Step: Then Admin should receive application error
-    // From: features\Login.feature:11:1
-  });
-  
-  Then('Admin should see correct spellings in all fields', async ({}) => {
-    // Step: Then Admin should see correct spellings in all fields
-    // From: features\Login.feature:17:1
-  });
-  
-  
-  
-  Then('Admin should see company name below the app name', async ({}) => {
-    // Step: Then Admin should see company name below the app name
-    // From: features\Login.feature:27:1
-  });
-  
-  Then('Admin should see {string}', async ({}, arg) => {
-    // Step: Then Admin should see "Please login to LMS application"
-    // From: features\Login.feature:32:1
-  });
-  
-  Then('Admin should see two text field', async ({}) => {
-    // Step: Then Admin should see two text field
-    // From: features\Login.feature:37:1
-  });
-  
-  Then('Admin should see {string} in the first text field', async ({}, arg) => {
-    // Step: Then Admin should see "User" in the first text field
-    // From: features\Login.feature:42:1
-  });
-  
-  Then('Admin should see asterisk mark symbol next to text for mandatory fields', async ({}) => {
-    // Step: Then Admin should see asterisk mark symbol next to text for mandatory fields
-    // From: features\Login.feature:47:1
-  });
-  
-  Then('Admin should {string} in the second text field', async ({}, arg) => {
-    // Step: Then Admin should "Password" in the second text field
-    // From: features\Login.feature:52:1
-  });
-  
-  Then('Admin should see asterisk mark symbol next to password text', async ({}) => {
-    // Step: Then Admin should see asterisk mark symbol next to password text
-    // From: features\Login.feature:57:1
-  });
+Then('Admin should see  LMS - Learning Management System', async ({ loginpagefixture,ctx }) => {
+  await expect(loginpagefixture.image).toBeVisible({ timeout: 3000 })
+  const expectedText='LMS - Learning Management System'
+  const takenscreenshot=await loginpagefixture.imgscreenshot()
+  const actualText = await loginpagefixture.extractTextfromimage(takenscreenshot);
+  expect(actualText).toContain(expectedText);
 
-  Then('Admin should see input field on the centre of the page', async ({}) => {
-    // Step: Then Admin should see input field on the centre of the page
-    // From: features\Login.feature:62:1
-  });
-  
-  Then('Admin should see login button', async ({}) => {
-    // Step: Then Admin should see login button
-    // From: features\Login.feature:67:1
-  });
-  
-  Then('Admin should see password in gray color', async ({}) => {
-    // Step: Then Admin should see password in gray color
-    // From: features\Login.feature:72:1
-  });
-  
+});
+
+Then('Admin should see company name below the app name', async ({loginpagefixture,ctx}) => {
+  const expectedText='NumpyNinja'
+  const takenscreenshot=await loginpagefixture.imgscreenshot()
+  const actualText = await loginpagefixture.extractTextfromimage(takenscreenshot);
+  expect(actualText).toContain(expectedText);
+});
+
+Then('Admin should see correct spellings in all fields', async ({ loginpagefixture }) => {
+  await expect(loginpagefixture.loginmessage).toContainText('Please login to LMS application')
+  await expect(loginpagefixture.usernametext).toContainText('User')
+  await expect(loginpagefixture.passwordtext).toContainText('Password')
+  await expect(loginpagefixture.loginbutton).toContainText('Login')
+  await expect(loginpagefixture.forgotpasswordlink).toContainText('Forgot Password')
+});
+
+Then('Admin should see {string}', async ({ loginpagefixture }, arg) => {
+  await expect(loginpagefixture.loginmessage).toContainText(arg)
+});
+
+Then('Admin should see two text field', async ({ loginpagefixture }) => {
+ const totaltextfields=await loginpagefixture.inputfieldscount()
+  console.log("Total input fields in the form:" + totaltextfields);
+  expect(totaltextfields).toEqual(2)
+});
+
+Then('Admin should see {string} in the first text field', async ({loginpagefixture }, arg) => {
+  await expect(loginpagefixture.usernametext).toContainText(arg)
+});
+
+Then('Admin should {string} in the second text field', async ({loginpagefixture }, arg) => {
+  await expect(loginpagefixture.passwordtext).toContainText(arg)
+});
+
+Then('Admin should see asterisk mark symbol next to text for mandatory fields', async ({loginpagefixture}) => {
+  await expect(loginpagefixture.usernametext).toContainText('*')
+});
+
+Then('Admin should see asterisk mark symbol next to password text', async ({loginpagefixture}) => {
+  await expect(loginpagefixture.passwordtext).toContainText('*')
+});
+
+Then('Admin should see login button', async ({loginpagefixture}) => {
+  await expect(loginpagefixture.loginbutton).toBeVisible()
+});
+
+Then('Admin should see input field on the centre of the page', async ({loginpagefixture,page}) => {
+// Retrieve viewport dimensions using evaluate()
+const { width: viewportWidth, height: viewportHeight } = await page.evaluate(() => {
+  return { width: window.innerWidth, height: window.innerHeight }});
+
+  const inputelements=await loginpagefixture.inputfieldspresent()
+  const totaltextfields=await loginpagefixture.inputfieldscount()
+
+  for (let i = 0; i < totaltextfields; i++) {
+    const inputBox = await inputelements.nth(i).boundingBox();
+
+    // Calculate input field's center position
+    const inputCenterX = inputBox.x + inputBox.width / 2;
+    const inputCenterY = inputBox.y + inputBox.height / 2;
+
+    // Calculate viewport center
+    const viewportCenterX = viewportWidth / 2;
+    const viewportCenterY = viewportHeight / 2;
+
+    // Validate Horizontal Center Alignment
+    expect(Math.abs(inputCenterX - viewportCenterX)).toBeLessThan(10);
+
+    console.log(`Input field ${i + 1} is centered.`);
+}
+});
+
+Then('Admin should see user in gray color', async ({loginpagefixture,page}) => {
+  const usernameElement = await loginpagefixture.usernametext.elementHandle();
+  const textColor = await page.evaluate(element => {
+    return window.getComputedStyle(element).getPropertyValue('color');
+  },usernameElement );
+  console.log('usernameelement is:'+usernameElement)
+  console.log("text color:"+ textColor)
+  // Validate if it's a grey shade
+  expect(isGrey(textColor)).toBe(true);
+  function isGrey(rgb) {
+    const match = rgb.match(/\d+/g); // Extract RGB values
+    if (!match || match.length < 3) return false;
+
+    const [r, g, b] = match.map(Number);
+    return r === g && g === b; // Grey means R, G, and B are equal
+}
+});
+
+Then('Admin should see password in gray color', async ({loginpagefixture,page}) => {
+  const passwordElement = await loginpagefixture.passwordtext.elementHandle();
+  const textColor = await page.evaluate(element => {
+    return window.getComputedStyle(element).getPropertyValue('color');
+  },passwordElement);
+  console.log('passwordelement is:'+passwordElement)
+  console.log("text color:"+ textColor)
+  // Validate if it's a grey shade
+  expect(isGrey(textColor)).toBe(true);
+  function isGrey(rgb) {
+    const match = rgb.match(/\d+/g); // Extract RGB values
+    if (!match || match.length < 3) return false;
+
+    const [r, g, b] = match.map(Number);
+    return r === g && g === b; // Grey means R, G, and B are equal
+}
+});
+
+Then('Admin should see one dropdown', async ({}) => {
+  await page.selectOption('select#dropdownId', 'optionValue');
+  console.log("dropdown is unavaillable on the login page")
+});
+
+Then('Admin should see {string} placeholder in dropdown', async ({}, arg) => {
+  await page.selectOption('select#dropdownId', 'optionValue');
+  console.log("dropdown is unavaillable on the login page")
+});
+
+Then('Admin should see {string} options in dropdown', async ({}, arg) => {
+  await page.selectOption('select#dropdownId', 'optionValue');
+  console.log("dropdown is unavaillable on the login page")
+});
+
