@@ -1,14 +1,16 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
-
+import dotenv from 'dotenv'
+import path from 'path'
 const testDir = defineBddConfig({
   
    features: 'features/*.feature',
    steps: ['step_definitions/*.js','Hooks/hooks.js','Fixtures/fixtures.js']
  });
 
- require('dotenv').config();
+ // Load environment variables from the .env file
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * Read environment variables from file.
@@ -35,6 +37,7 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    baseURL: process.env.baseUrl,
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
 

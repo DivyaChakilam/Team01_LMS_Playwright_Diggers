@@ -8,13 +8,17 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.50.1",
+    "@playwright/test": "^1.51.0",
     "@types/node": "^22.13.9",
     "allure-playwright": "^3.2.0",
     "playwright-bdd": "^8.2.1"
   },
   "dependencies": {
+    "csv": "^6.3.11",
+    "csv-parser": "^3.2.0",
     "cucumber": "^6.0.7",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "playwright": "^1.51.0",
+    "tesseract.js": "^4.1.1"
   }
 }

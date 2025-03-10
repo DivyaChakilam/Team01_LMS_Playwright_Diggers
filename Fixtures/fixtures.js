@@ -4,5 +4,9 @@ export const test=basetest.extend({
     loginpagefixture:async({page},use)=>{
         const loginpagefixture=new Loginpage(page); 
         await use(loginpagefixture)
-    }
+    },
+    ctx: async ({}, use) => {
+        const ctx = {};
+        await use(ctx);
+      },
 })
