@@ -18,6 +18,12 @@ class ClassPage {
         this.sortIconsLoc = page.locator('//thead/tr/th/p-sorticon');
         this.multipleDelBtnLoc = page.locator('div.box button');
         this.totalEntriesLoc = page.locator('div.p-d-flex');
+        this.addNewClassLoc = page.getByRole('button',{ name: `` });
+        this.classDetailsPopUp = page.locator('div.p-dialog');
+        this.popUpFields = page.locator('div.p-field input.p-inputtext');
+        this.cancelBtn = page. getByRole('button', { name: 'Cancel' });
+        this.saveBtn = page.getByRole('button', { name: 'Save' });
+        this.closeBtn = page.getByRole('button', { name: '' });
     }
 
     async validLogin() {
@@ -33,7 +39,7 @@ class ClassPage {
         await this.password.fill(process.env.passWord);
         await this.login.click();
     }
-    async moduleClick(moduleName)
+    async goToModule(moduleName)
     {
         //dynamically pass the modulename
         await this.page.getByRole('button', { name: `${moduleName}` }).dblclick();
@@ -71,7 +77,6 @@ class ClassPage {
     {
         const pagebuttons = await this.paginationButtons;
         return pagebuttons;
-
     }
 
     async verifySortIcons()
@@ -89,6 +94,39 @@ class ClassPage {
     {
         return await this.totalEntriesLoc;
     }
+
+    async gotToMenuItem(addNewOption,moduleName){
+        await this.page.getByRole('button', { name: `${moduleName}` }).click();
+        await this.page.getByRole('menuitem', { name: `${addNewOption}` }).click();
+
+    }
+
+    async isPopUpVisible()
+    {
+        return await this.classDetailsPopUp;
+        //return await this.classDetailsPopUp.toBeVisible();
+
+    }
+
+    async getFormFields()
+    {
+        return await this.popUpFields;
+    }
+
+    async isSaveBtnVisible()
+    {
+        return await this.saveBtn;
+    }
+
+    async isCancelBtnVisible()
+    {
+        return await this.cancelBtn;
+    }
+    async isCloseBtnVisible()
+    {
+        return await this.closeBtn;
+    }
+
 }
 
 //export default { ClassPage };
