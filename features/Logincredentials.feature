@@ -3,7 +3,7 @@ Feature: Login  Page Credentials Verification
 Background: Admin gives the correct LMS portal URL
 Given Admin is on login Page
 
-@only
+
 Scenario: Validate login with valid data in all field
 When Admin enter valid data in all field and clicks login button 
 Then Admin should land on home page
