@@ -11,21 +11,24 @@ Given('The browser is open', async ({ page }) => {
 });
 
 When('Admin gives the invalid LMS portal URL', async ({page}) => {
-  for(const record of records)
-  {
-    await page.goto(record.URL)
-    console.log("Navigated to the url:"+record.URL)
-  }
+  
+    await page.goto(records[0]?.URL)
+    console.log("Navigated to the url:"+records[0]?.URL)
+  
 });
 
 //bug
 Then('Admin should receive application error', async ({page}) => {
-  const dummyerrorlocator = page.locator('.error-message');
-  await expect(dummyerrorlocator).toBeVisible()
+  const applicationerror = page.locator('iframe').contentFrame().getByText('There\'s nothing here, yet. Build something amazing')
+  await expect(applicationerror).toBeVisible()
 });
 
 When('Admin gives the correct LMS portal URL', async ({ page }) => {
   await page.goto(process.env.baseUrl)
+});
+
+Then('HTTP response >= {int}. Then the link is broken', async ({loginpagefixture}, arg) => {
+  await loginpagefixture.checkBrokenLinks()
 });
 
 Then('Admin should land on the login page', async ({ page }) => {

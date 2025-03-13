@@ -6,70 +6,53 @@ import {records} from '../Utils/csvReader'
 const { Given, When, Then } = createBdd(test);
 
 Given('Admin is on login Page', async ({page}) => {
-  // Create a new incognito context
- /* const context = await browser.newContext();
   
-  // Open a new page inside the incognito contextawait page.getByRole('textbox', { name: 'User' }).click();
-  await page.getByRole('textbox', { name: 'User' }).fill('Playwright@gmail.com');
-  await page.getByRole('textbox', { name: 'User' }).press('Tab');
-  await page.getByRole('textbox', { name: 'Password' }).fill('March@2025');
-  await page.getByRole('textbox', { name: 'Password' }).press('Enter');
-  await page.getByRole('button', { name: 'Login' }).click();
-  await page.getByText('LMS - Learning Management').click();
-  await page.getByText('LMS - Learning Management').click();
-  const page = await context.newPage(); */
-
     await page.goto(process.env.baseUrl)
-    console.log("username from .env:" +process.env.LMS_userName)
-    console.log("username from .env:" +process.env.passWord)
   });
   
   When('Admin enter valid data in all field and clicks login button', async ({loginpagefixture}) => {
-    await loginpagefixture.loggingIn(process.env.LMS_userName,process.env.passWord)
+    await loginpagefixture.loggingIn(process.env.user_Name,process.env.passWord)
+  });
+  
+  Then('Admin should land on home page', async ({homepagefixture}) => {
+    await expect(homepagefixture.homepageheading).toBeVisible()
+  });
+  
+  When('Admin enter invalid data and clicks login button', async ({loginpagefixture}) => {
+   
+      console.log("Invalid username:"+records[0]?.username)
+      console.log("Invalid password:"+records[0]?.password)
+     await loginpagefixture.loggingIn(records[0]?.username,records[0]?.password)
+    
+  });
+  
+  Then('Error message {string}', async ({loginpagefixture}, arg) => {
+    await expect(loginpagefixture.invalidcredsmsg).toContainText(arg)
+  });
+  
+  When('Admin enter value only in password and clicks login button', async ({loginpagefixture}) => {
 
+        console.log("Invalid username:"+records[2]?.username)
+        console.log("Invalid password:"+records[2]?.password)
+       await loginpagefixture.onlypassword(records[2]?.password)   
+  }); 
+  
+  Then('Error message" Please enter your user name"', async ({loginpagefixture,page}) => {
+    await expect(loginpagefixture.usernamemsg).toBeVisible()
   });
   
-  Then('Admin should land on home page', async ({}) => {
-    // Step: Then Admin should land on home page
-    // From: features\Logincredentials.feature:8:1
+  When('Admin enter value only in user name and clicks login button', async ({loginpagefixture}) => {
+    await loginpagefixture.onlyusername(records[1]?.username)
   });
   
-  When('Admin enter invalid data and clicks login button', async ({}) => {
-    // Step: When Admin enter invalid data and clicks login button
-    // From: features\Logincredentials.feature:11:1
+  Then('Error message" Please enter your password "', async ({loginpagefixture}) => {
+    await expect(loginpagefixture.passwordmsg).toBeVisible({timeout:3000})
   });
   
-  Then('Error message {string}', async ({}, arg) => {
-    // Step: Then Error message "Invalid username and password Please try again"
-    // From: features\Logincredentials.feature:12:1
-  });
-  
-  When('Admin enter value only in password and clicks login button', async ({}) => {
-    // Step: When Admin enter value only in password and clicks login button
-    // From: features\Logincredentials.feature:15:1
-  });
-  
-  Then('Error message" Please enter your user name"', async ({}) => {
-    // Step: Then Error message" Please enter your user name"
-    // From: features\Logincredentials.feature:16:1
-  });
-  
-  When('Admin enter value only in user name and clicks login button', async ({}) => {
-    // Step: When Admin enter value only in user name and clicks login button
-    // From: features\Logincredentials.feature:19:1
-  });
-  
-  Then('Error message" Please enter your password "', async ({}) => {
-    // Step: Then Error message" Please enter your password "
-    // From: features\Logincredentials.feature:20:1
-  });
-  
-  When('Admin enter valid credentials  and clicks login button through keyboard', async ({}) => {
-    // Step: When Admin enter valid credentials  and clicks login button through keyboard
-    // From: features\Logincredentials.feature:23:1
+  When('Admin enter valid credentials  and clicks login button through keyboard', async ({loginpagefixture}) => {
+    await loginpagefixture.keyboard(process.env.user_Name,process.env.passWord)
   });
 
-  When('Admin enter valid credentials  and clicks login button through mouse', async ({}) => {
-    // Step: When Admin enter valid credentials  and clicks login button through mouse
-    // From: features\Logincredentials.feature:28:1
+  When('Admin enter valid credentials  and clicks login button through mouse', async ({loginpagefixture}) => {
+    await loginpagefixture.loggingIn(process.env.user_Name,process.env.passWord)
   });
