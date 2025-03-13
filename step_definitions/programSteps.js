@@ -3,18 +3,7 @@ import { createBdd } from 'playwright-bdd';
 import { test } from '../Fixtures/fixtures'
 
 const { Given, When, Then } = createBdd(test);
-/*
-Given('Admin is logged in to LMS application and lands on home page', async ({loginpagefixture,page}) => {
-    await page.goto(process.env.baseUrl)
-    await loginpagefixture.loggingIn(process.env.user_Name,process.env.passWord)
-  });
-  
-  When('Admin clicks the Program Navigation bar in the Header and Admin is on Program page', async ({homepagefixture,page}) => {
-    await expect(homepagefixture.programtab).toBeVisible()
-    await homepagefixture.programtabclick()
-    await expect(page).toHaveURL(process.env.program_URL)
-  });
- */ 
+
   When('Admin clicks on delete button for a program', async ({programpagefixture}) => {
   
     await programpagefixture.clickdeleteicon()
