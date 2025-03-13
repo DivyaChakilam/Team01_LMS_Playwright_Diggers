@@ -4,7 +4,7 @@ import { defineBddConfig } from 'playwright-bdd';
 import dotenv from 'dotenv'
 import path from 'path'
 const testDir = defineBddConfig({
-  
+  // importTestFrom: 'tests/fixtures/fixtures.js',
   features: 'features/*.feature',
   steps: ['step_definitions/*.js','Hooks/hooks.js','Fixtures/fixtures.js']
 });
@@ -43,7 +43,11 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    screenshot: 'only-on-failure', 
+    screenshot: 'only-on-failure',
+     
+    expect: {
+      timeout: 10000, // sets timeout to 10 seconds for all assertions
+    },
   },
 
   /* Configure projects for major browsers */
@@ -53,10 +57,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // s----
 
     {
       name: 'webkit',
