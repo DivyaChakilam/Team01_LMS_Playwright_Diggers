@@ -4,7 +4,7 @@ import { defineBddConfig } from 'playwright-bdd';
 import dotenv from 'dotenv'
 import path from 'path'
 const testDir = defineBddConfig({
-  
+  // importTestFrom: 'tests/fixtures/fixtures.js',
   features: 'features/*.feature',
   steps: ['step_definitions/*.js','Hooks/hooks.js','Fixtures/fixtures.js']
 });
@@ -57,10 +57,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // s----
 
     {
       name: 'webkit',

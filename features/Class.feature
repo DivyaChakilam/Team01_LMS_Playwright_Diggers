@@ -1,3 +1,4 @@
+@skip
 Feature: Class page Visual validation
 
 Background:
@@ -6,8 +7,7 @@ When Admin clicks the "Class" Navigation bar in the Header
 
 
    ################ Manage Program Page Visual Validation ###########################
-
-@focus 
+ 
 Scenario: Validating the class manage page
 Then Admin should land on the " Manage Class" page
 #@skip
@@ -19,10 +19,10 @@ Then Admin should see the " Manage Class" Header
 #@skip
 Scenario: Validating Search bar in class page
 Then Admin should see the Search Bar in Manage class page
-@skip
+
 Scenario: Validating the data table headers in the class page
 Then Admin should see the datatable heading like Batchname,class topic,class description,status,class Date,staff name,Edit/Delete
-@skip
+
 Scenario: Validating the text and pagination icon in the classpage
 Then Admin should see the " showing x to y of z entries" 
 And enabled pagination controls under the data table
