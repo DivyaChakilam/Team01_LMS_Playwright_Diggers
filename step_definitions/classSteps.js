@@ -13,36 +13,36 @@ const expectedHeaders = [
   ' Edit / Delete'
 ];
 
-Given('Admin logs in to LMS application and lands on home page', async ({ classpagefixture }) => {
-  await classpagefixture.validLogin();   
+Given('Admin logs in to LMS application and lands on home page', async ({ commonpagefixture }) => {
+  await commonpagefixture.validLogin();   
 });
 
-When('Admin clicks the {string} Navigation bar in the Header', async ({classpagefixture}, moduleOption) => {
-    await classpagefixture.goToModule(moduleOption);
+When('Admin clicks the {string} Navigation bar in the Header', async ({commonpagefixture}, moduleOption) => {
+    await commonpagefixture.goToModule(moduleOption);
 });
 
 /*****************           Class Page Visual Validation          *****************/
   
-Then('Admin should land on the {string} page', async ({classpagefixture}, expectedPageName) => {
-  const actualPageName = await classpagefixture.getPageName();
+Then('Admin should land on the {string} page', async ({commonpagefixture}, expectedPageName) => {
+  const actualPageName = await commonpagefixture.getPageName();
   await expect(actualPageName).toEqual(expectedPageName);
   //await expect(classpagefixture.getPageName()).toEqual(expectedPageName);
 });
 
-Then('Admin should see the {string} Title', async ({classpagefixture}, title) => {
-  const actualTitle = await classpagefixture.getTitle();  
+Then('Admin should see the {string} Title', async ({commonpagefixture}, title) => {
+  const actualTitle = await commonpagefixture.getTitle();  
   await expect(actualTitle).toBeVisible();
   //await expect(classpagefixture.getTitle()).toBeVisible();
 });
 
-Then('Admin should see the {string} Header', async ({classpagefixture}, arg) => {
-  const header = await classpagefixture.headerCheck();
+Then('Admin should see the {string} Header', async ({commonpagefixture}, headerName) => {
+  const header = await commonpagefixture.headerCheck(headerName);
   await expect(header).toBeVisible();
   //await expect(classpagefixture.headerCheck()).toBeVisible();
 });
 
-Then('Admin should see the Search Bar in Manage class page', async ({classpagefixture}) => {
-  const searchBar = await classpagefixture.searchBarVisibility();
+Then('Admin should see the Search Bar in Manage class page', async ({commonpagefixture}) => {
+  const searchBar = await commonpagefixture.searchBarVisibility();
   await expect(searchBar).toBeVisible();
   //await expect(classpagefixture.searchBarVisibility()).toBeVisible();
 });
@@ -119,6 +119,10 @@ Then('Admin should see a popup open for class details with empty form along with
    await expect(popUp).toBeVisible();
   //await expect(classpagefixture.isPopUpVisible()).toBeVisible();
 
+  //verify classDetails is visible
+  const classDetails = await classpagefixture.isClassDetailsVisible();
+  await expect(classDetails).toBeVisible();
+
   //verify the form fields to be empty
   const formFields = await classpagefixture.getFormFields();
   console.log(formFields);
@@ -134,13 +138,99 @@ Then('Admin should see a popup open for class details with empty form along with
   const closeBtn = await classpagefixture.isCloseBtnVisible();
   await expect(closeBtn).toBeVisible();
 
-  // await expect(classpagefixture.isSaveBtnVisible()).toBeVisible();
-  // await expect(classpagefixture.isCancelBtnVisible()).toBeVisible();
-  // await expect(classpagefixture.isCloseBtnVisible()).toBeVisible();
+});
+Then('Admin should see few input fields and their respective text boxes in the class details window', async ({ classpagefixture }, dataTable) => {
+  for (const { 'Label Name': labelName, 'Input Field ID': inputFieldId } of dataTable.hashes()) {
+    //const labelLocator = await this.page.locator(`label:has-text("${labelName}")`);
+    const labelLocator = await classpagefixture.getLabel(labelName);
+    //const inputLocator = await this.page.locator(`#${inputFieldId}`);
+    const inputLocator = await classpagefixture.getInput(inputFieldId);
+    
+    await expect(labelLocator).toBeVisible();
+    await expect(inputLocator).toBeVisible();
+  }
+});
+
+When('Admin selects class date in date picker', async ({classpagefixture}) => {
+ 
+});
+
+Then('Admin should see no of class value is added automatically', async ({classpagefixture}) => {
+  const classNoValue = await classpagefixture.getClassNovalue();
+  await expect(classNoValue).toBe('1');
 
 });
 
-Then('Admin should see few input fields and their respective text boxes in the class details window', async ({}) => {
-  // Step: Then Admin should see few input fields and their respective text boxes in the class details window
-  // From: features\Class.feature:65:1
+Then('Admin should see weekends dates are disabled to select', async ({classpagefixture}) => {
+  // Step: Then Admin should see weekends dates are disabled to select
+  // From: features\Class.feature:87:1
+});
+
+When('Admin clicks on save button without entering data', async ({classpagefixture}) => {
+  classpagefixture.clickSaveBtn();
+});
+/*
+Then('class won\'t be created and Admin gets error message', async ({classpagefixture}, dataTable) => {
+  const expectedErrorMessages = dataTable.rawTable.slice(1).map(row => row[0]); // Extract expected error messages from data table
+
+  // Retrieve all error message elements
+  const errorMsgLocators = await classpagefixture.getErrorMessagesLocator();
+  const errorMsgCount = await errorMsgLocators.count();
+
+  // Extract text from each error message element
+  const actualErrorMessages = [];
+  for (let i = 0; i < errorMsgCount; i++) {
+    const errorMsgText = await errorMsgLocators.nth(i).textContent();
+    actualErrorMessages.push(errorMsgText.trim());
+  }
+
+  // Validate each expected error message is present in the actual error messages
+  for (const expectedMessage of expectedErrorMessages) {
+    expect(actualErrorMessages).toContain(expectedMessage);
+  }
+});*/
+Then('class won\'t be created and Admin gets error message', async ({classpagefixture}, dataTable) => {
+  for (const { 'Error Message': errorMessage} of dataTable.hashes()) {
+    //const labelLocator = await this.page.locator(label:has-text("${labelName}"));
+    const errorMsg = await classpagefixture.getErrorMessage(errorMessage);
+    
+    await expect(errorMsg).toBeVisible();
+  }
+  });
+
+When('Admin clicks Cancel Icon on Admin Details form', async ({classpagefixture}) => {
+  classpagefixture.clickCancelBtn();
+});
+
+When('Admin clicks Close\\(X) Icon on Admin Details form', async ({classpagefixture}) => {
+  classpagefixture.clickCloseIcon();
+  
+});
+Then('Class Details popup window should be closed without saving', async ({classpagefixture}) => {
+  const popUp = await classpagefixture.isPopUpVisible();
+   await expect(popUp).not.toBeVisible();
+});
+
+When('Admin clicks on the {string} icon', async ({classpagefixture}, icon) => {
+  classpagefixture.clickEditBtn();
+});
+
+Then('Admin should see new pop up with class details appears', async ({classpagefixture}) => {
+  //Verify the popup is visible
+  const popUp = await classpagefixture.isPopUpVisible();
+   await expect(popUp).toBeVisible();
+
+  //verify classDetails is visible
+  const classDetails = await classpagefixture.isClassDetailsVisible();
+  await expect(classDetails).toBeVisible();
+
+});
+
+Then('Admin should see batch name field and class topic are disabled', async ({classpagefixture}) => {
+  const batchNameField = await classpagefixture.isBatchNameDisabled();
+  await(batchNameField).isDisabled();
+
+  const classTopicField = await classpagefixture.isClassTopicDisabled();
+  await(classTopicField).isDisabled();
+
 });

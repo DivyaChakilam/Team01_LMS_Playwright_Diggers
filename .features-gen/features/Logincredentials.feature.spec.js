@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+// Generated from: features\Logincredentials.feature
+=======
 // Generated from: features/Logincredentials.feature
+>>>>>>> ad113fd34dc4b0a06198d71980986bed97337193
 import { test } from "../../Fixtures/fixtures.js";
 
 test.describe('Login  Page Credentials Verification', () => {
@@ -45,7 +49,11 @@ test.afterEach('AfterEach Hooks', ({ $afterEach }) => {});
 
 test.use({
   $test: ({}, use) => use(test),
+<<<<<<< HEAD
+  $uri: ({}, use) => use('features\\Logincredentials.feature'),
+=======
   $uri: ({}, use) => use('features/Logincredentials.feature'),
+>>>>>>> ad113fd34dc4b0a06198d71980986bed97337193
   $bddFileData: ({}, use) => use(bddFileData),
   $afterEachFixtures: ({ page }, use) => use({ page }),
 });
