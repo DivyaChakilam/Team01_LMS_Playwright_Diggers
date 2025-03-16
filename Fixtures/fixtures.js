@@ -36,6 +36,10 @@ export const test=basetest.extend({
     programpagefixture:async({page},use)=>{
         const programpagefixture=new ProgramPage(page);
         await use(programpagefixture)
+    },
+    commonpagefixture:async({page},use)=>{
+        const commonpagefixture=new CommonPage(page);
+        await use(commonpagefixture);
     }
 
 })
