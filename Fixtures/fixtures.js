@@ -1,6 +1,8 @@
 import {test as basetest} from 'playwright-bdd'
 import { Loginpage } from '../PageObjects/LoginPageObjects';
 import { ClassPage } from '../PageObjects/ClassPageObjects';
+//import { CommonPage } from '../PageObjects/CommonPageObjects';
+import {CommonPage } from '../PageObjects/CommonPageObjects';
 export const test=basetest.extend({
     // page: async ({ page }, use) => {
     //     // You can modify the 'page' fixture here if necessary
@@ -18,7 +20,12 @@ export const test=basetest.extend({
 
     classpagefixture:async({page},use)=>{
         const classpagefixture=new ClassPage(page); 
-        await use(classpagefixture)
+        await use(classpagefixture);
     },
+    commonpagefixture:async({page},use)=>{
+        const commonpagefixture=new CommonPage(page);
+        await use(commonpagefixture);
+    }
+    
 
 })
