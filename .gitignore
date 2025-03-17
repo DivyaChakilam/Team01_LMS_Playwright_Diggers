@@ -1,7 +1,10 @@
-
+npm i -D @playwright/test playwright-bdd
 # Playwright
 node_modules/
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/screenshots/
+/.features-gen/
+/.features-gen/features/
