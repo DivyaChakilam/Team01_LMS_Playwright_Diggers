@@ -1,4 +1,4 @@
-@skip
+
 Feature: Class page Visual validation
 
 Background:
@@ -110,11 +110,35 @@ Then Class Details popup window should be closed without saving
 
 ######################## Edit New class Popup Scenarios #########################
 
-@only
 Scenario: Validate row level edit icon
 When Admin clicks on the "edit" icon 
 Then Admin should see new pop up with class details appears
 And Admin should see batch name field and class topic are disabled
 
+ @only
+      Scenario Outline: Verify sorting of "<column Name>" in Ascending order
+    When Admin clicks on Arrow next to "<column Name>" to sort in Ascending order
+    Then Admin See the "<column Name>" is sorted in Ascending order
+     Examples:
+    |   column Name    |
+    |   Batch Name     |
+    |  Class Topic     |
+    |Class Description |
+    |   Status         |
+    |   Class Date     |
+    |   Staff Name     |
+    
+@only
+ 	Scenario Outline: Verify sorting of "<column Name>" in Descending order
+    When Admin clicks on Arrow next to "<column Name>" to sort in Descending order
+    Then Admin See the "<column Name>" is sorted in Descending order
+     Examples:
+    |column Name|
+    |   Batch Name     |
+    |  Class Topic     |
+    |Class Description |
+    |   Status         |
+    |   Class Date     |
+    |   Staff Name     |
 
 

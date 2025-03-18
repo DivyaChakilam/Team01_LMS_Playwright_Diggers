@@ -12,6 +12,7 @@ const expectedHeaders = [
   ' Staff Name ',
   ' Edit / Delete'
 ];
+let originalList = [];
 
 Given('Admin logs in to LMS application and lands on home page', async ({ commonpagefixture }) => {
   await commonpagefixture.validLogin();   
@@ -233,4 +234,99 @@ Then('Admin should see batch name field and class topic are disabled', async ({c
   const classTopicField = await classpagefixture.isClassTopicDisabled();
   await(classTopicField).isDisabled();
 
+});
+
+/**Sorting in Ascending and Descending Order */
+
+When('Admin clicks on Arrow next to {string} to sort in Ascending order', async ({commonpagefixture}, columnName) => {
+  commonpagefixture.clickOnSortIcon(columnName.trim());
+  //let originalList = [];
+  switch (columnName.trim()) {
+      case 'Batch Name':
+          originalList = await commonpagefixture.getOriginalList(2);
+          break;
+      case 'Class Topic':
+          originalList = await commonpagefixture.getOriginalList(3);
+          break;
+      case 'Class Description':
+          originalList = await commonpagefixture.getOriginalList(4);
+          break;
+      case 'Status':
+            originalList = await commonpagefixture.getOriginalList(5);
+          break;
+      case 'Class Date':
+            originalList = await commonpagefixture.getOriginalList(6);
+           break;
+      case 'Staff Name':
+            originalList = await commonpagefixture.getOriginalList(7);
+            break;
+  }
+  // originalList.forEach(str => {
+  //     console.log(`originalList for ${columnName} : ${str}`);
+  // });
+  console.log(`Original List for ${columnName} :`, originalList);
+});
+
+Then('Admin See the {string} is sorted in Ascending order', async ({commonpagefixture}, columnName) => {
+   // Get the sorted list
+   let sortedList ="";
+   if(columnName === 'Class Date')
+   {
+    sortedList = await commonpagefixture.getDateAscendingOrderList(originalList);
+   }
+   else{
+    sortedList = await commonpagefixture.getAscendingOrderList(originalList);
+   }
+
+   // Log the sorted list
+   //sortedList.forEach(item => console.log(`sortedList: ${item}`));
+
+   console.log(`Sorted List for ${columnName} :`, sortedList);
+
+   // Assert that the original list is equal to the sorted list
+   expect(originalList).toEqual(sortedList);
+});
+
+When('Admin clicks on Arrow next to {string} to sort in Descending order', async ({commonpagefixture}, columnName) => {
+   commonpagefixture.clickOnSortIcon(columnName.trim());
+   commonpagefixture.clickOnSortIcon(columnName.trim());//clicking second time for descending order
+  //let originalList = [];
+  switch (columnName.trim()) {
+      case 'Batch Name':
+          originalList = await commonpagefixture.getOriginalList(2);
+          break;
+      case 'Class Topic':
+          originalList = await commonpagefixture.getOriginalList(3);
+          break;
+      case 'Class Description':
+          originalList = await commonpagefixture.getOriginalList(4);
+          break;
+      case 'Status':
+            originalList = await commonpagefixture.getOriginalList(5);
+          break;
+      case 'Class Date':
+            originalList = await commonpagefixture.getOriginalList(6);
+           break;
+      case 'Staff Name':
+            originalList = await commonpagefixture.getOriginalList(7);
+            break;
+  }
+  // originalList.forEach(str => {
+  //     console.log(`originalList for ${columnName} : ${str}`);
+  // });
+  console.log(`Original List for ${columnName} :`, originalList);
+});
+
+Then('Admin See the {string} is sorted in Descending order', async ({commonpagefixture}, columnName) => {
+  // Get the sorted list
+  const sortedList = await commonpagefixture.getDescendingOrderList(originalList);
+
+  // Log the sorted list
+  //sortedList.forEach(item => console.log(`sortedList: ${item}`));
+
+  console.log(`Sorted List for ${columnName} :`, sortedList);
+
+  // Assert that the original list is equal to the sorted list
+  expect(originalList).toEqual(sortedList);
+  
 });
