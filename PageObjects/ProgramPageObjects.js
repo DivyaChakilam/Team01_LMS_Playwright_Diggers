@@ -2,32 +2,35 @@ const { default: playwrightConfig } = require('../playwright.config');
 
 require('dotenv').config();
 exports.ProgramPage=
-class ProgramPage {
-    constructor(page) {
-        this.page = page;
-        // this.user = page.locator('#username');
-        // this.password = page.locator('#password');
-        // this.login = page.locator('#login');
+class ProgramPage{
+    constructor(page){
+        this.page=page
+        this.url='https://playwright-frontend-app-a9ea85794ad9.herokuapp.com/program'
+        this.deleteicon=page.locator('#deleteProgram')
+        this.delconfpopup=page.locator('div.p-confirm-dialog')
+        this.yesbutton=page.getByRole('button', { name: 'Yes' })
+        this.nobutton=page.getByRole('button', { name: 'No' })
         this.pageName = page.getByText(' Manage Program');
         this.logOutNm = page.getByText('Logout');
-
+        this.programClickBtn = page.getByRole('button', { name: 'Program' });
+        this .menuItemSubMenu =page.getByRole('menuitem', { name: 'Add New Program' });
 
     }
 
-    // async validLogin() {
-    //     await this.page.goto(process.env.baseUrl);
-    //     // await this.page.context().clearCookies();
-    //     // await this.page.reload();
-    //     console.log('Loaded Username:', process.env.user_Name);
-    //     console.log('Loaded Password:', process.env.passWord);
-    //     // await this.page.evaluate(() => {
-    //     //     document.querySelector("#username").setAttribute("autocomplete", "off");
-    //     // });
-    //     await this.user.fill(process.env.user_Name);
-    //     await this.password.fill(process.env.passWord);
-    //     await this.login.click();
-    // }
-
+    async clickdeleteicon(){
+        await this.deleteicon.nth(0).waitFor({ state: 'visible' });
+       // await this.deleteicon.nth(0).dblclick()
+        await this.deleteicon.nth(0).click({ force: true })
+        await this.deleteicon.nth(0).click({ force: true })     
+    }
+    async clickYes(){
+        await this.yesbutton.waitFor({ state: 'visible' });
+        await this.yesbutton.click()
+    }
+    async clickNo(){
+        await this.nobutton.waitFor({ state: 'visible' });
+        await this.nobutton.click()
+    }
     async getPageName()
     {
         const pagename = await this.pageNameLoc.first().textContent();
@@ -39,5 +42,14 @@ class ProgramPage {
     {
        return await this.logOutNm;
     }
+
+    async getprogramClickBtn(){
+        return await this.programClickBtn;
+    }
+
+    async getmenuItemSubMenu(){
+        return await this.menuItemSubMenu;
+    }
+
 }
 
