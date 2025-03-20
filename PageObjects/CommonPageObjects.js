@@ -15,6 +15,16 @@ class CommonPage{
         this.closeBtn = page.getByRole('button', { name: '' });
         this.titleLocator = page.getByText('LMS - Learning Management');
         this.searchLocator =  page.getByRole('textbox', { name: 'Search...' });
+        this.checkBox = page.locator('td div.p-checkbox');
+        this.multipleDelBtnLoc = page.locator('div.box button');
+        this.tableRows = page.locator('//tbody/tr');
+        this.searchResults = page.locator('//table/tbody/tr');
+        this.nextPageLoc = page.locator('span.pi-angle-right');
+        this.lastPageLoc = page.locator('span.pi-angle-double-right');
+        this.firstPageLoc = page.locator('span.pi-angle-double-left');
+        this.previousPageLoc = page.locator('span.pi-angle-left');
+
+
 
     }
 
@@ -94,7 +104,7 @@ class CommonPage{
         );
         return ascendingOrderList;
       }
-//handling sorting for date field
+      //handling sorting for date field
       async getDateAscendingOrderList(originalList) {
         // Sort the original list in case-insensitive order
         const ascendingOrderList = [...originalList].sort((a, b) => {
@@ -115,11 +125,99 @@ class CommonPage{
         );
         return ascendingOrderList;
       }
+      async getDateDescendingOrderList(originalList) {
+        // Sort the original list in case-insensitive order
+        const descendingOrderList = [...originalList].sort((a, b) => {
+            // Extract first date from each string for sorting
+            const dateA = new Date(a.trim().split(/\s+/)[0]); // Get first date in string
+            const dateB = new Date(b.trim().split(/\s+/)[0]); // Get first date in string
+          
+            return dateB - dateA; // Sort in scending order
+          });
+          
+        return descendingOrderList;
+      }
+      async selectCheckBox(rowNum,elementColumnNum)
+      {
+        await this.checkBox.nth(rowNum).click();
+        const selectedElement = await this.page.locator(`//tbody/tr[${rowNum + 1}]/td[${elementColumnNum}]`).textContent();
+        console.log("Selected Item",selectedElement);
+        return selectedElement;
+       }
+      async isMultipleDelBtnEnabled()
+      {
+        return await this.multipleDelBtnLoc; 
+      }
+      async clickMultipleDelBtn()
+      {
+        await this.multipleDelBtnLoc.click();
+      }
+      async getAllElementsOfSelectedColumn(elementColumnNum)
+      {
+        return await this.page.locator(`//tbody/tr/td[${elementColumnNum}]`).allTextContents();
+      }
+      //selecting multiple checkboxes
+      async selectCheckBoxes(fromRowNum,toRowNum,elementColumnNum)
+      {
+        const selectedElementNames = [];
+  
+        for (let i = fromRowNum; i <= toRowNum; i++) {
+            
+            await this.checkBox.nth(i).click();
+            // Capture the program name from the same row (2nd column)
+            const selectedElement = await this.page.locator(`//tbody/tr[${i + 1}]/td[${elementColumnNum}]`).textContent();
+            selectedElementNames.push(selectedElement);
+           }
+           return selectedElementNames;
+        }
+        async serchText(text)
+        {
+          await this.searchLocator.fill(text);
+      }
 
+      async getSearchResults()
+      {
+          await this.searchResults.first().waitFor({ state: 'visible', timeout: 10000 });
+          return await this.searchResults.allInnerTexts();
+      }
+      async validateSearchResults(searchResults, expectedValue) {
+        // Check if the expected value exists in the search results
+        const isMatch = searchResults.some(text => text.includes(expectedValue));
+        return isMatch;  // Return the result (true/false)
+      }
 
+      async goToNextPage(){
+        await this.nextPageLoc.click();
+      }
+      async goToLastPage(){
+        await this.lastPageLoc.click();
+      }
+      async goToPreviousPage(){
+        await this.previousPageLoc.click();
+      }
+      async goToFirstPage(){
+        await this.firstPageLoc.click();
+      }
+      async getnextPageLoc()
+      {
+        return await this.nextPageLoc;
+      }
+      async getlastPageLoc()
+      {
+        return await this.lastPageLoc;
+      }
+      async getpreviousPageeLoc()
+      {
+        return await this.previousPageLoc;
+      }
+      async getfirstPageLoc()
+      {
+        return await this.firstPageLoc;
+      }
 
-    
+      
 
+          
 }
 //export default { CommonPage };
 //sorting technique : Ascending order

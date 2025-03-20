@@ -29,80 +29,22 @@ class ClassPage {
         this.classDetails = page.getByText('Class Details');
         this.batchNameField = page.locator('#batchName');
         this.classTopicField = page.locator('#classTopic');
-       // this.errorMessageLoc = page.locator('small');//it gives 6 elements
+        this.rowLevelDelBtn = page.locator('span button.p-button-danger');
+        this.yesBtn = page.getByRole('button', { name: 'Yes' });
+        this.noBtn = page.getByRole('button', { name: 'No' })
+        this.confirmLoc = page.getByText('Confirm');
+       // this.errorMessageLoc = page.locator('small');//it gives 6 element
+        //xpath locator for locating all the weekenddisabled elements from the caledar date picker with span
+        //Now, to validate that all the weekend dates are disabled, we check if each <td> has a child <span> with the p-disabled class.
+       this.weekendDisabledCells = page.locator("//tbody[contains(@class, 'ng-tns-c178-17')]//tr/td[position()=1 or position()=last()]/span[contains(@class, 'p-disabled')]");
 
-        // getByText('Batch Name is required.')
-        // getByText('Class Topic is required.')
-        // getByText('Class Date is required.')
-        // getByText('No. of Classes is required.')
-        // getByText('Staff Name is required.')
-        // getByText('Status is required.')
-        // Locators for input fields and their labels
-        // this.batchNameLabel = page.getByText('Batch Name');
-        // getByLabel('Class Details').getByText('Batch Name');
-        // getByRole('textbox', { name: 'Select a Batch Name' })
-        // getByLabel('Class Details').getByText('Class Topic')
-        // getByRole('textbox', { name: 'Class Topic *' })
-        // this.batchNameInput = page.locator('');
-        // getByLabel('Class Details').getByText('Class Description')
-        // getByRole('textbox', { name: 'Class Description' })
-        // getByText('Select Class Dates')
-        // locator('#icon')
-        // getByText('No of Classes')
-        // getByLabel('Class Details').getByText('Staff Name')
-        // getByRole('textbox', { name: 'Select a Staff Name' })
-        // getByLabel('Class Details').getByText('Status')
-        // getByText('Status Active Inactive')
-        // getByText('Comments')
-        // getByRole('textbox', { name: 'Comments' })
-        // getByText('Notes')
-        // getByRole('textbox', { name: 'Notes' })
-        // locator('#classRecordingPath')
+       /* this is by using css slelector
+       this.weekendDisabledCells = page.locator("tbody.ng-tns-c178-17 tr td:first-child span.p-disabled, " +
+                                                     "tbody.ng-tns-c178-17 tr td:last-child span.p-disabled );*/
+        this.datePickerLoc = page.locator('button.p-datepicker-trigger');
 
 
     }
-
-    // async validLogin() {
-    //     await this.page.goto(process.env.baseUrl);
-    //     // await this.page.context().clearCookies();
-    //     // await this.page.reload();
-    //     console.log('Loaded Username:', process.env.user_Name);
-    //     console.log('Loaded Password:', process.env.passWord);
-    //     // await this.page.evaluate(() => {
-    //     //     document.querySelector("#username").setAttribute("autocomplete", "off");
-    //     // });
-    //     await this.user.fill(process.env.user_Name);
-    //     await this.password.fill(process.env.passWord);
-    //     await this.login.click();
-    // }
-    // async goToModule(moduleName)
-    // {
-    //     //dynamically pass the modulename
-    //     await this.page.getByRole('button', { name: `${moduleName}` }).dblclick();
-    // }
-    // async getPageName()
-    // {
-    //     const pagename = await this.pageNameLoc.first().textContent();
-    //     console.log(pagename);
-    //     return pagename;
-    // }
-    // async getTitle() {
-    //     const title = await this.titleLocator;  // Await the title() method
-    //     console.log(title); // Log the title
-    //     return title; // Return the title
-    //   }
-    // async headerCheck(headerName)
-    // {
-
-    //     //this.headerLocator =  await this.page.getByText('${headerName}');
-    //     const headerLoc =  await this.page.getByText('${headerName}');
-    //     //const header = await this.headerLocator;
-    //     return headerLoc;
-    // }
-    // async searchBarVisibility()
-    // {
-    //     return await this.searchLocator;
-    //}
     async verifyDataTableHeader()
     {
         const headerCells = await this.dataTableHeader.allTextContents();
@@ -120,7 +62,7 @@ class ClassPage {
 
     async verifySortIcons()
     {
-        const sortIcons = await this.searchLocator;
+        const sortIcons = await this.sortIconsLoc;
         return sortIcons;
     }
 
@@ -170,6 +112,14 @@ class ClassPage {
     {
         return await this.closeBtn;
     }
+    async isYesBtnVisible()
+    {
+        return await this.yesBtn;
+    }
+    async isNoBtnVisible()
+    {
+        return await this.noBtn;
+    }
     async getLabel(labelName)
     {
         return await this.page.getByLabel('Class Details').getByText(`${labelName}`);
@@ -214,7 +164,35 @@ class ClassPage {
     {
         return await this.classTopicField;
     }
+    async clickRowLevelDelBtn()
+    {
+        await this.rowLevelDelBtn.first().click();
+    }
+    async isConfirmVisible()
+    {
+        return await this.confirmLoc.textContent();
+    }
+    async clickYesBtn()
+    {
+        await this.yesBtn.click();
+    }
+    async clickNoBtn()
+    {
+        await this.noBtn.click();
+    }
+    async getWeekendDisabledCells()
+    {
+        return await this.weekendDisabledCells;
+    }
+    async selectDates(targetDate)
+    {
+        await this.datePickerLoc.click();
+         // Click next month button
+        await this.page.locator("button.p-datepicker-next").click();
+        // Select the given date in the next month
+        await this.page.locator(`//td[not(contains(@class, 'p-disabled'))]/span[text()='${targetDate}']`).click();
 
+    }
 
 
 }
