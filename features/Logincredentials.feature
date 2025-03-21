@@ -15,7 +15,7 @@ Feature: Login  Page Credentials Verification
     When Admin enter value only in password and clicks login button
     Then Error message" Please enter your user name"
 
-  @slow @fail
+  @slow @bug
   Scenario: Validate login credentials with null password
     When Admin enter value only in user name and clicks login button
     Then Error message" Please enter your password "

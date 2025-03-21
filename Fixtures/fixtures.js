@@ -3,7 +3,8 @@ import { Loginpage } from '../PageObjects/LoginPageObjects';
 import { Homepage } from '../PageObjects/HomePageObjects';
 import { ClassPage } from '../PageObjects/ClassPageObjects';
 import { Logoutpage } from '../PageObjects/LogoutPageObjects';
-import { ProgramPage } from '../PageObjects/PragramPageObjects';
+import { ProgramPage } from '../PageObjects/ProgramPageObjects';
+import { CommonPage } from '../PageObjects/CommonPageObjects';
 export const test=basetest.extend({
 
     loginpagefixture:async({page},use)=>{
@@ -34,6 +35,11 @@ export const test=basetest.extend({
     programpagefixture:async({page},use)=>{
         const programpagefixture=new ProgramPage(page);
         await use(programpagefixture)
+    },
+
+    commonpagefixture:async({page},use)=>{
+        const commonpagefixture=new CommonPage(page);
+        await use(commonpagefixture);
     }
 
 })
