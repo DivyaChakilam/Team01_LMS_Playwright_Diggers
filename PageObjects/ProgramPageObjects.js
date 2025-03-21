@@ -41,9 +41,6 @@ await this.newpgmsave.click()
 if(this.newpgmerrormsg.isVisible()){
    await this.closebutton.click() 
 }
-
-
-
         }
        
         //Clicks the first delete icon on the page
@@ -116,34 +113,7 @@ if(this.newpgmerrormsg.isVisible()){
             console.log("Number of rows: ", await rowsel.count())
             return rowsel.count()
         }
+        
 
-
-
-
-
-
-        //finds total delete icons in Programs
-        async findElementInPagination() {
-            // while (true) {
-            // Check if the element exists on the current page
-            const deliconelements = await this.deleteicon.all();
-
-            if (deliconelements.length > 0) {
-                console.log(`Found ${deliconelements.length} elements on this page`);
-            }
-            await this.nextbutton.isVisible()
-            console.log("nextbutton locator is visible")
-            /* 
-                 // Check if "Next" button exists and is enabled
-                 if (await this.nextbutton.isDisabled()) {
-                   break; // Exit loop if no more pages
-                 }
-             
-                 // Click "Next" and wait for new content to load
-                 await this.nextbutton.click();
-                 await page.waitForLoadState('domcontentloaded');
-               */
-            //  }
-
-        }
+        
     }

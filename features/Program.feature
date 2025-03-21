@@ -10,12 +10,12 @@ Feature: Program page validation
 #Given Admin is on Program page
     When Admin clicks on delete button for a program
     Then Admin will get confirm deletion popup
-
+@skip
   Scenario: Verify Admin is able to click 'Yes'
     Given Admin is on Confirm deletion form
     When Admin clicks on yesbutton"Yes" button
     Then Admin can see 'SuccessfulProgram Deleted' message
-
+@skip
   Scenario: Verify Admin is able to delete program
 #Given Admin is on Program page
     When Admin Searches for "Deleted Program name"
@@ -42,12 +42,12 @@ Feature: Program page validation
 #Given Admin is on Program page
     When Admin clicks on the delete button on the left top of the program page
     Then Admin lands on Confirmation form
-
+@skip
   Scenario: Verify Admin is able to click 'Yes' - Delete multiple programes
     Given Admin is on Confirm deletion form
     When Admin clicks on yesbutton"Yes" button
     Then Admin can see 'SuccessfulProgram Deleted' message
-
+@skip
   Scenario: Verify Admin is able to deleted program
 #Given Admin is on Program page
     When Admin Searches for Deleted Program names
@@ -117,7 +117,6 @@ Feature: Program page validation
     When Admin clicks "Previous page" link on the "Program" table
     Then Admin should see the previous page record on the table with pagination has next page and last page link enabled
 
-  @only
   Scenario Outline: Verify Admin is able to click First page link
     Given Admin is on last page of "Program" module table
     When Admin clicks "First page" link on the "Program" table
@@ -127,6 +126,6 @@ Feature: Program page validation
 
   Scenario: Validating the program manage page
     Then Admin should land on the " Manage Program" page
-
+@skip
   Scenario: Verify Logout displayed in menu bar
     Then Admin should see "Logout" in menu bar

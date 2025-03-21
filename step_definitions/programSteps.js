@@ -146,7 +146,7 @@ When('Admin clicks on nobutton"No" button-multiple programes selected to delete'
   await programpagefixture.clickNo()
 });
 
-Then('Admin can see Programs are still selected and not deleted', async ({ programpagefixture }) => {
+Then('Admin can see Programs are still selected and not deleted', async ({ programpagefixture,page }) => {
  //validation for Programs are still selected
   for (const name of programpagefixture.selectedData) {
     const row = await programpagefixture.programtable.locator(`tbody tr:has-text("${name}")`);

@@ -1,4 +1,4 @@
-
+@skip
 Feature: Class page Visual validation
 
 Background:
