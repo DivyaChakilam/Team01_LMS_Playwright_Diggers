@@ -1,3 +1,4 @@
+require('dotenv').config();
 exports.CommonPage=
 class CommonPage{
     constructor(page)
@@ -22,6 +23,9 @@ class CommonPage{
         this.lastPageLoc = page.locator('span.pi-angle-double-right');
         this.firstPageLoc = page.locator('span.pi-angle-double-left');
         this.previousPageLoc = page.locator('span.pi-angle-left');
+
+
+
     }
 
     async validLogin() {
@@ -101,6 +105,7 @@ class CommonPage{
         return ascendingOrderList;
       }
 //handling sorting for date field
+      //handling sorting for date field
       async getDateAscendingOrderList(originalList) {
         // Sort the original list in case-insensitive order
         const ascendingOrderList = [...originalList].sort((a, b) => {
@@ -212,6 +217,11 @@ class CommonPage{
         return await this.firstPageLoc;
       }  
 
+      
+
+      
+
+          
 }
 //export default { CommonPage };
 //sorting technique : Ascending order

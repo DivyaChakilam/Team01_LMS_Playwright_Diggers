@@ -4,6 +4,13 @@ import { test } from '../Fixtures/fixtures'
 import {records} from '../Utils/csvReader'
 
 const { Given, When, Then } = createBdd(test);
+const expectedHeaders = [
+  "",
+  'Program Name ',
+  'Program Description ',
+  'Program Status ',
+  ' Edit / Delete '
+];
 
 let originalList = [];
 
@@ -331,9 +338,39 @@ Then('Admin should see the very first page record on the table with Previous pag
 Then('Admin should see {string} in menu bar', async ({ programpagefixture }) => {
   const logout = await programpagefixture.getLogOutNm();
   await expect(logout).toBeVisible();
+
+});
+
+// Then('Admin should see the page names as in order {string}', async ({programpagefixture}, arg) => {
+  
+// });
+
+When('Admin clicks on {string} in menu bar', async ({programpagefixture}, arg) => {
+  await programpagefixture.getprogramClickBtn();
+
+});
+
+Then('Admin should see the sub menu {string}', async ({programpagefixture}, arg) => {
+  await programpagefixture.getmenuItemSubMenu();
+
+});
+
+Then('click on {string} button', async ({classpagefixture}, arg) => {
+  classpagefixture.clickCancelBtn();
+});
+//code kept in comment
+Then('Admin should able to see datatable heading Program Name , Program description,Programstatus and Edit\\/Delete for each program', async ({}) => {
+  
+});
+
+When('Admin clicks on {string} under the {string} menu bar', async ({}, arg, arg1) => {
+  
+});
+
+Then('Admin enters the Name in the text box', async ({}) => {
+  
 });
 
 
-
-
+  
 

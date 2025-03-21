@@ -24,7 +24,21 @@ exports.ProgramPage =
             this.programtable = this.datatable
             this.search = page.getByRole('textbox', { name: 'Search...' })
             this.selectedData = [];
+            this.pageName = page.getByText(' Manage Program');
+        this.logOutNm = page.getByText('Logout');
         }
+
+        async getPageName()
+    {
+        const pagename = await this.pageNameLoc.first().textContent();
+        console.log(pagename);
+        return pagename;
+    }
+
+    async getLogOutNm()
+    {
+       return await this.logOutNm;
+    }
 
         //creating new Program to avoid flaky tests for Delete Program modules
         async createpgm(pname,pdescription){

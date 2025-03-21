@@ -1,3 +1,4 @@
+@skip
 Feature: Program page validation
 
   Background:
@@ -123,6 +124,62 @@ Feature: Program page validation
     Then Admin should see the very first page record on the table with Previous page link and first page links are disabled
 
  ################ Manage Program Page Visual Validation ###########################
+
+@focus 
+Scenario: Validating the program manage page
+Then Admin should land on the " Manage Program" page
+
+Scenario: Verify Logout displayed in menu bar
+Then Admin should see "Logout" in menu bar
+
+Scenario: Verify heading in menu bar
+Then Admin should see the " LMS - Learning Management System " Title
+
+#Scenario: Verify other page's name displayed in menu bar
+#Then Admin should see the page names as in order "Program"
+
+Scenario: Verify click on program on menu bar
+When Admin clicks on "Program" in menu bar
+Then Admin should see the sub menu "Add New Program"
+
+Scenario:Validating the data table headers in the program page
+#Then Admin should able to see datatable heading Program Name , Program description,Programstatus and Edit/Delete for each program
+
+####################### Menu bar - Program - Add New Program #######################
+#@only code is kept in comment
+Scenario: Verify enter program name
+    #When Admin clicks on "Add New Program" under the "Program" menu bar
+    #Then Admin enters the Name in the text box
+    # Then Admin can see the text entered
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# npx playwright test features/Class.feature --headed
+# npx bddgen
+
+# npx bddgen
+# npx playwright test --headed --project='chromium'
+#  npm i tesseract.js@4.1.1
+#  npx bddgen
+#  npx playwright test --headed --project='chromium'
+# npx playwright test features/Class.feature --headed --project='chromium
+
+# // npx playwright test --headed --project='chromium'
 
   Scenario: Validating the program manage page
     Then Admin should land on the " Manage Program" page
