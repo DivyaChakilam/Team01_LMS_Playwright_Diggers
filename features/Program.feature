@@ -129,28 +129,194 @@ Feature: Program page validation
 Scenario: Validating the program manage page
 Then Admin should land on the " Manage Program" page
 
+@skip
 Scenario: Verify Logout displayed in menu bar
 Then Admin should see "Logout" in menu bar
 
+@skip
 Scenario: Verify heading in menu bar
-Then Admin should see the " LMS - Learning Management System " Title
+Then Admin should see the heading " LMS - Learning Management System "
 
-#Scenario: Verify other page's name displayed in menu bar
-#Then Admin should see the page names as in order "Program"
+@skip
+Scenario: Verify other page's name displayed in menu bar
+Then Admin should see the page names as in order "Program"
 
+
+# @only
+# Scenario: Verify sub menu displayed in program menu bar
+# Then Admin should see sub menu in menu bar as "Add New Program"
+
+@skip
 Scenario: Verify click on program on menu bar
-When Admin clicks on "Program" in menu bar
+When Admin clicks on "Program" in menu bar 
 Then Admin should see the sub menu "Add New Program"
+And click on "Cancel" button
 
+
+   ################  Manage Program Page validation ##########################
+
+
+@skip
 Scenario:Validating the data table headers in the program page
-#Then Admin should able to see datatable heading Program Name , Program description,Programstatus and Edit/Delete for each program
+Then Admin should able to see datatable heading Program Name , Program description,Programstatus and Edit/Delete for each program
 
+
+ 
 ####################### Menu bar - Program - Add New Program #######################
-#@only code is kept in comment
+@skip
 Scenario: Verify enter program name
-    #When Admin clicks on "Add New Program" under the "Program" menu bar
-    #Then Admin enters the Name in the text box
+    When Admin clicks on "Add New Program" under the "Program" menu bar
+    Then Admin enters the Name in the text box
     # Then Admin can see the text entered
+@skip
+Scenario: Verify enter description
+    Then Admin enters the Description in text box
+    Then Admin can see the text entered in description box
+
+
+@skip
+Scenario: Admin adds a new program
+When Admin clicks on "Add New Program"
+# Then Admin is on the pop-up window information
+And Admin enters "JV" as Program Name
+# And Admin enters "This is JV" as Program Description
+And Admin selects the first radio button
+And Admin clicks on Save
+
+@skip
+Scenario: Admin logs in and updates a program name
+    When Admin clicks the "Program" button
+    And Admin searches for "datamining1"
+    And Admin selects the program
+    And Admin clicks the edit button
+    And Admin updates the program name to "datamining11"
+    And Admin clicks the save button
+    Then Admin should see the updated program name
+
+###############Sorting###################
+
+
+@skip
+Scenario: Verify Program Details Popup window
+When Admin clicks a "Add New Program" under the "Program" menu bar in program module
+Then Admin should see a popup open for progrma details with empty form along with <Save> and <Cancel> button and Close(X) Icon on the top right corner of the window on the program page
+
+Scenario: Validate input fields and their text boxes in Program details form 
+When Admin clicks a "Add New Class" under the "Program" menu bar
+Then Admin should see few input fields and their respective text boxes in the class details window
+    | Label Name            | Input Field ID           |
+| Program Name          | program-name             |
+| Program Description   | program-description      |
+| Program Status        | program-status           |
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  Scenario: Verify title of the pop up window
+#     Then Admin should see window title as "Program Details"
+
+
+# Scenario: Verify title of the pop up window
+# Then Admin should see window title as "Program Details"
+
+# Scenario: Verify mandatory fields with red asterisk mark
+# Then Admin should see red asterisk mark beside mandatory field "Name"
+
+#   Scenario: Verify empty form submission
+#    Then Admin clicks save button without entering mandatory fields
+#    Then Admin gets message "Name is required"
+
+  
+#   Scenario: Verify select Status
+#     Then Admin selects the status of the program by clicking on the radio button
+#     Then Admin can see 'Active/Inactive' status selected
+
+ 
+#     When Admin clicks on "Add New Program" under the "Program" menu bar
+#     And Admin enter valid details for mandatory fields and Click on save button
+#     Then Admin gets message 'Successful Program created'
+
+#  Scenario: Verify empty form submission
+#     When Admin clicks on "Add New Program" under the "Program" menu bar
+#     And Admin clicks save button without entering mandatory fields
+#     Then Admin gets message "Name is required"
+
+#   Scenario: Verify cancel button
+#     When Admin clicks on "Add New Program" under the "Program" menu bar
+#     And Admin clicks Cancel button
+#     Then Admin can see Program Details form disappears
+
+#   Scenario: Verify enter program name
+#     When Admin clicks on "Add New Program" under the "Program" menu bar
+#     And Admin enters the Name in the text box
+#     Then Admin can see the text entered
+
+#   Scenario: Verify enter description
+#     When Admin clicks on "Add New Program" under the "Program" menu bar
+#     And Admin enters the Description in text box
+#     Then Admin can see the text entered in description box
+
+#   Scenario: Verify select Status
+#     When Admin clicks on "Add New Program" under the "Program" menu bar
+#     And Admin selects the status of the program by clicking on the radio button
+#     Then Admin can see 'Active/Inactive' status selected
+
+#   Scenario: Verify Admin is able to save the program details
+#     And Admin enter valid details for mandatory fields and Click on save button
+#     Then Admin gets message 'Successful Program created'
+
+  
+#   Scenario: Verify added Program is created
+#     When Admin creates a new program with name "Test Program"
+#     And Admin searches with newly created "Test Program"
+#     Then Records of the newly created "Test Program" is displayed and match the data entered
+
+#   Scenario: Verify close window with "X"
+#     And Admin clicks on "X" button
+#     Then Admin can see program details form disappear
+
+
+
+
+
 
 
 

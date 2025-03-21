@@ -6,7 +6,8 @@ When Admin clicks the "Class" Navigation bar in the Header
 
 
    ################ Manage Program Page Visual Validation ###########################
- 
+
+@focus
 Scenario: Validating the class manage page
 Then Admin should land on the " Manage Class" page
 

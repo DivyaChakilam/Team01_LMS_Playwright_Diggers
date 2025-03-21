@@ -8,7 +8,7 @@ exports.ProgramPage =
             this.newpgmdialog=page.getByRole('dialog', { name: 'Program Details' });
             this.newpgmname=page.getByRole('textbox', { name: 'Name *' })
             this.newpgmdescription=page.getByRole('textbox', { name: 'Description *' })
-          this.newpgmstatus= page.locator('.p-radiobutton-box').first()
+            this.newpgmstatus= page.locator('.p-radiobutton-box').first()
             this.newpgmsave=page.getByRole('button', { name: 'Save' })
             this.newpgmerrormsg=page.getByText('Program name is already exist.')
             this.deletebutton = page.locator('mat-card-title').getByRole('button')
@@ -25,21 +25,18 @@ exports.ProgramPage =
             this.search = page.getByRole('textbox', { name: 'Search...' })
             this.selectedData = [];
             this.pageName = page.getByText(' Manage Program');
-        this.logOutNm = page.getByText('Logout');
+            this.logOutNm = page.getByText('Logout');
         }
-
         async getPageName()
     {
         const pagename = await this.pageNameLoc.first().textContent();
         console.log(pagename);
         return pagename;
     }
-
     async getLogOutNm()
     {
        return await this.logOutNm;
     }
-
         //creating new Program to avoid flaky tests for Delete Program modules
         async createpgm(pname,pdescription){
 await this.pgmmodule.click()
@@ -53,10 +50,9 @@ await this.newpgmdescription.fill(pdescription)
 await this.newpgmstatus.click()
 await this.newpgmsave.click()
 if(this.newpgmerrormsg.isVisible()){
-   await this.closebutton.click() 
+   await this.closebutton.click()
 }
         }
-       
         //Clicks the first delete icon on the page
         async clickdeleteicon() {
             await this.deleteicon.nth(0).waitFor({ state: 'visible' });
@@ -95,26 +91,24 @@ if(this.newpgmerrormsg.isVisible()){
         async checkthreeitems(){
             await this.checkbox.nth(1).check()
             await this.checkbox.nth(2).check()
-            await this.checkbox.nth(3).check() 
+            await this.checkbox.nth(3).check()
         }
         //returns program names of all checkboxed rows
         async checkboxeddata(){
             await this.programtable.locator('tbody tr').first().waitFor({ state: 'visible' });
             const rowsel = await this.programtable.locator('tbody tr')
-
             for (let i = 0; i < await rowsel.count(); i++) {
                 const row = rowsel.nth(i);
                 const checkbox = row.locator('.p-checkbox-box');
-                if (await checkbox.isChecked()) {  
+                if (await checkbox.isChecked()) {
                     // Extract text from specific columns (e.g., second column)
     const rowData = await row.locator('td').nth(1).textContent();
-    this.selectedData.push(rowData); 
+    this.selectedData.push(rowData);
                 }
             }
   //          console.log("Selected rows data:", this.selectedData);
             return(this.selectedData)
         }
-
         async columncount() {
             await this.programtable.locator('thead tr th').first().waitFor({ state: 'visible' });
             const columnsel = await this.programtable.locator('thead tr th')
@@ -127,7 +121,4 @@ if(this.newpgmerrormsg.isVisible()){
             console.log("Number of rows: ", await rowsel.count())
             return rowsel.count()
         }
-        
-
-        
     }

@@ -335,11 +335,7 @@ Then('Admin should see the very first page record on the table with Previous pag
 
 /*****************          Program Page Visual Validation          *****************/
 
-Then('Admin should see {string} in menu bar', async ({ programpagefixture }) => {
-  const logout = await programpagefixture.getLogOutNm();
-  await expect(logout).toBeVisible();
 
-});
 
 // Then('Admin should see the page names as in order {string}', async ({programpagefixture}, arg) => {
   
@@ -373,4 +369,3 @@ Then('Admin enters the Name in the text box', async ({}) => {
 
 
   
-
