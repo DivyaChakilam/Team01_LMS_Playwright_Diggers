@@ -4,7 +4,6 @@ import { defineBddConfig } from 'playwright-bdd';
 import dotenv from 'dotenv'
 import path from 'path'
 const testDir = defineBddConfig({
-  // importTestFrom: 'tests/fixtures/fixtures.js',
   features: 'features/*.feature',
   steps: ['step_definitions/*.js','Hooks/hooks.js','Fixtures/fixtures.js']
 });
@@ -34,7 +33,9 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [['html'],['allure-playwright',{resultsDir: "allure-results",
+    detail: true,
+    suiteTitle: true}]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: process.env.baseUrl,
@@ -56,9 +57,6 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-
-    // s----
-
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },

@@ -6,11 +6,11 @@ class ClassPage {
         this.user = page.locator('#username');
         this.password = page.locator('#password');
         this.login = page.locator('#login');
-        this.pageName = page.getByText('Manage Class');
-        this.pageNameLoc = page.locator('div.box');
-        this.titleLocator = page.getByText('LMS - Learning Management');
-        this.headerLocator =  page.getByText('Manage Class');
-        this.searchLocator =  page.getByRole('textbox', { name: 'Search...' });
+       // this.pageName = page.getByText('Manage Class');
+        //this.pageNameLoc = page.locator('div.box');
+       // this.titleLocator = page.getByText('LMS - Learning Management');
+       // this.headerLocator =  page.getByText('Manage Class');
+        //this.searchLocator =  page.getByRole('textbox', { name: 'Search...' });
         //getByText('In total there are 1 classes.')
         this.dataTableHeader = page.locator('//thead/tr/th');
         this.paginationEntriesLoc = page.locator('span.p-paginator-current');
@@ -19,50 +19,31 @@ class ClassPage {
         this.multipleDelBtnLoc = page.locator('div.box button');
         this.totalEntriesLoc = page.locator('div.p-d-flex');
         this.addNewClassLoc = page.getByRole('button',{ name: `` });
-        this.classDetailsPopUp = page.locator('div.p-dialog');
+        this.PopUpLoc = page.locator('div.p-dialog');
         this.popUpFields = page.locator('div.p-field input.p-inputtext');
         this.cancelBtn = page. getByRole('button', { name: 'Cancel' });
         this.saveBtn = page.getByRole('button', { name: 'Save' });
         this.closeBtn = page.getByRole('button', { name: '' });
-    }
+        this.classNoField = page.locator('#classNo');
+        this.editBtnLoc = page.locator('span.pi-pencil');
+        this.classDetails = page.getByText('Class Details');
+        this.batchNameField = page.locator('#batchName');
+        this.classTopicField = page.locator('#classTopic');
+        this.rowLevelDelBtn = page.locator('span button.p-button-danger');
+        this.yesBtn = page.getByRole('button', { name: 'Yes' });
+        this.noBtn = page.getByRole('button', { name: 'No' })
+        this.confirmLoc = page.getByText('Confirm');
+       // this.errorMessageLoc = page.locator('small');//it gives 6 element
+        //xpath locator for locating all the weekenddisabled elements from the caledar date picker with span
+        //Now, to validate that all the weekend dates are disabled, we check if each <td> has a child <span> with the p-disabled class.
+       this.weekendDisabledCells = page.locator("//tbody[contains(@class, 'ng-tns-c178-17')]//tr/td[position()=1 or position()=last()]/span[contains(@class, 'p-disabled')]");
 
-    async validLogin() {
-        await this.page.goto(process.env.baseUrl);
-        // await this.page.context().clearCookies();
-        // await this.page.reload();
-        console.log('Loaded Username:', process.env.user_Name);
-        console.log('Loaded Password:', process.env.passWord);
-        // await this.page.evaluate(() => {
-        //     document.querySelector("#username").setAttribute("autocomplete", "off");
-        // });
-        await this.user.fill(process.env.user_Name);
-        await this.password.fill(process.env.passWord);
-        await this.login.click();
-    }
-    async goToModule(moduleName)
-    {
-        //dynamically pass the modulename
-        await this.page.getByRole('button', { name: `${moduleName}` }).dblclick();
-    }
-    async getPageName()
-    {
-        const pagename = await this.pageNameLoc.first().textContent();
-        console.log(pagename);
-        return pagename;
-    }
-    async getTitle() {
-        const title = await this.titleLocator;  // Await the title() method
-        console.log(title); // Log the title
-        return title; // Return the title
-      }
-    async headerCheck()
-    {
-        const header = await this.headerLocator;
-        return header;
-    }
-    async searchBarVisibility()
-    {
-        return await this.searchLocator;
+       /* this is by using css slelector
+       this.weekendDisabledCells = page.locator("tbody.ng-tns-c178-17 tr td:first-child span.p-disabled, " +
+                                                     "tbody.ng-tns-c178-17 tr td:last-child span.p-disabled );*/
+        this.datePickerLoc = page.locator('button.p-datepicker-trigger');
+
+
     }
     async verifyDataTableHeader()
     {
@@ -81,7 +62,7 @@ class ClassPage {
 
     async verifySortIcons()
     {
-        const sortIcons = await this.searchLocator;
+        const sortIcons = await this.sortIconsLoc;
         return sortIcons;
     }
 
@@ -103,9 +84,14 @@ class ClassPage {
 
     async isPopUpVisible()
     {
-        return await this.classDetailsPopUp;
+        return await this.PopUpLoc;
         //return await this.classDetailsPopUp.toBeVisible();
 
+    }
+
+    async isClassDetailsVisible()
+    {
+        return await this.classDetails;
     }
 
     async getFormFields()
@@ -126,6 +112,88 @@ class ClassPage {
     {
         return await this.closeBtn;
     }
+    async isYesBtnVisible()
+    {
+        return await this.yesBtn;
+    }
+    async isNoBtnVisible()
+    {
+        return await this.noBtn;
+    }
+    async getLabel(labelName)
+    {
+        return await this.page.getByLabel('Class Details').getByText(`${labelName}`);
+    }
+    async getInput(inputFieldId)
+    {
+
+        return await this.page.getByRole('textbox', { name: `${inputFieldId}` });//(`#${inputFieldId}`);
+    }
+
+    async getClassNovalue()
+    {
+
+        return await this.classNoField.inputValue();
+    }
+    async clickSaveBtn()
+    {
+        await this.saveBtn.click();
+    }
+    async clickCancelBtn()
+    {
+        await this.cancelBtn.click();
+    }
+    async clickCloseIcon()
+    {
+        await this.closeBtn.click();
+    }
+    async getErrorMessage(errorMessage)
+    {
+         return await this.page.getByText(`${errorMessage}`);
+    }
+
+    async clickEditBtn()
+    {
+        await this.editBtnLoc.first().click();
+    }
+    async isBatchNameDisabled()
+    {
+        return await this.batchNameField;
+    }
+    async isClassTopicDisabled()
+    {
+        return await this.classTopicField;
+    }
+    async clickRowLevelDelBtn()
+    {
+        await this.rowLevelDelBtn.first().click();
+    }
+    async isConfirmVisible()
+    {
+        return await this.confirmLoc.textContent();
+    }
+    async clickYesBtn()
+    {
+        await this.yesBtn.click();
+    }
+    async clickNoBtn()
+    {
+        await this.noBtn.click();
+    }
+    async getWeekendDisabledCells()
+    {
+        return await this.weekendDisabledCells;
+    }
+    async selectDates(targetDate)
+    {
+        await this.datePickerLoc.click();
+         // Click next month button
+        await this.page.locator("button.p-datepicker-next").click();
+        // Select the given date in the next month
+        await this.page.locator(`//td[not(contains(@class, 'p-disabled'))]/span[text()='${targetDate}']`).click();
+
+    }
+
 
 }
 
