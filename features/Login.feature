@@ -17,17 +17,17 @@ Scenario: Verify for broken link
 When Admin gives the correct LMS portal URL
 Then HTTP response >= 400. Then the link is broken
 
-@fail 
+@invalidgherkin
 Scenario: Verify dropdown is present
 When Admin gives the correct LMS portal URL
 Then Admin should see one dropdown
 
-@fail 
+@invalidgherkin 
 Scenario: Verify placeholder in dropdown to select role
 When Admin gives the correct LMS portal URL
 Then Admin should see "select the role " placeholder in dropdown
 
-@fail 
+@invalidgherkin 
 Scenario: Verify dropdown option to select role
 When Admin gives the correct LMS portal URL
 Then Admin should see "Admin , staff, student" options in dropdown
