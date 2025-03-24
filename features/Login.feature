@@ -1,4 +1,4 @@
-@skip
+
 Feature: Login  Page Verification 
 
 Background: 

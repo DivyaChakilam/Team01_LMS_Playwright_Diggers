@@ -1,4 +1,4 @@
-@skip
+
 Feature: Login  Page Credentials Verification
 
   Background: Admin gives the correct LMS portal URL
