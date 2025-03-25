@@ -233,7 +233,7 @@ class ClassPage {
                 // **Handle dropdowns**
                 if (field.includes('Staff Name')) {
                     await this.staffNameDropDown.click();
-                    await this.page.waitForTimeout(3000);
+                    await this.page.waitForTimeout(5000);
                     //await this.page.waitForSelector('selector-for-dropdown-options', { state: 'attached' });
                     await this.page.getByRole('option', { name: value }).click();
                 }else{

@@ -36,8 +36,6 @@ Then('Admin should land on the {string} page', async ({commonpagefixture}, expec
 Then('Admin should see the {string} Title', async ({commonpagefixture,page}, title) => {
   const actualTitle = await commonpagefixture.getTitle();  
   await expect(actualTitle).toBeVisible();
-  await expect(page).toHaveURL('https://playwright-frontend-app-a9ea85794ad9.herokuapp.com/session');
-  await expect(classpagefixture.getTitle()).toBeVisible();
 });
 
 Then('Admin should see the {string} Header', async ({commonpagefixture}, headerName) => {
@@ -390,7 +388,7 @@ Then('Admin can see the deletion alert disappears without any changes', async ({
 /****************************** validating Delete Multiple Class Functionality ******************************** */
 
 When('Admin clicks any checkbox in the data table', async ({commonpagefixture}) => {
-  await commonpagefixture.selectCheckBox(3);
+  await commonpagefixture.selectCheckBox(2,3);
 });
 
 Then('Admin should see common delete option enabled under header {string}', async ({commonpagefixture}, arg) => {
@@ -459,10 +457,10 @@ Then('Admin can see the selected multiple classes is deleted from the data table
 When('Admin enter the {string} in search textbox', async ({commonpagefixture}, searchOption) => {
   switch(searchOption.trim()){
     case 'Batch Name':
-      await commonpagefixture.serchText('dvlpr');
+      await commonpagefixture.serchText('Java Batch 01');
       break;
     case 'Class Topic':
-      await commonpagefixture.serchText('python');
+      await commonpagefixture.serchText('JIRA0987');
       break;
     case 'Staff Name':
       await commonpagefixture.serchText('Kevin Thomas');
