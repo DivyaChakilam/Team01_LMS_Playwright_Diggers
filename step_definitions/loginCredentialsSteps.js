@@ -46,7 +46,7 @@ Given('Admin is on login Page', async ({page}) => {
   });
   
   Then('Error message" Please enter your password "', async ({loginpagefixture}) => {
-    await expect(loginpagefixture.passwordmsg).toBeVisible({timeout:3000})
+    await expect.soft(loginpagefixture.passwordmsg).toBeVisible({timeout:3000})
   });
   
   When('Admin enter valid credentials  and clicks login button through keyboard', async ({loginpagefixture}) => {

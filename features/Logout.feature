@@ -1,4 +1,4 @@
-@skip
+
 Feature: Validation on Logout button
 
 Background: Admin is logged into the application
