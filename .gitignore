@@ -8,3 +8,5 @@ node_modules/
 /screenshots/
 /.features-gen/
 /.features-gen/features/
+/allure-report/
+/allure-results/

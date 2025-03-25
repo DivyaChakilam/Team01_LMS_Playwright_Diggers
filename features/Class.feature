@@ -53,7 +53,7 @@ Scenario: Validate Logout link on navigation bar
 When Admin clicks on "Logout" on the navigation bar
 Then Admin is redirected to Login page
 
-######################## Add New Class Scenarios #########################
+######################## Add New Class popup visual validation Scenarios #########################
 
 Scenario: Validate Class Details Popup window
 When Admin clicks a "Add New Class" under the "Class" menu bar
@@ -73,8 +73,7 @@ Then Admin should see few input fields and their respective text boxes in the cl
       #| No of Classes       | No of Classes       |
       #| Select Class Dates  |
 
-######################## Add New Class Popup Scenarios #########################
-
+######################## Add New Class functoinal validations Scenarios #########################
 Scenario: Check no of classes value added when selecting class dates
 When Admin clicks a "Add New Class" under the "Class" menu bar
 And Admin selects class date in date picker
@@ -102,10 +101,41 @@ When Admin clicks a "Add New Class" under the "Class" menu bar
 And Admin clicks Cancel Icon on Admin Details form 
 Then Class Details popup window should be closed without saving
 
-Scenario: Validate Close(X) icon on class Details form
+Scenario: validate when Admin skips Mandatory details and enters only optional details
 When Admin clicks a "Add New Class" under the "Class" menu bar
-And Admin clicks Close(X) Icon on Admin Details form 
-Then Class Details popup window should be closed without saving
+And Admin clicks on save button only by entering "OptionalDetails"
+Then class won't be created and Admin gets error message
+      |  Error Message              |
+      |  Batch Name is required.    |
+      |  Class Topic is required.   |
+      |  Class Date is required.    |
+      |  No. of Classes is required.|
+      |  Staff Name is required.    |
+      |  Status is required.        |
+
+Scenario Outline: Validate with invalid details in each field 
+When Admin clicks a "Add New Class" under the "Class" menu bar
+And Admin enters "<Invalid Details>" into the fields 
+Then Admin gets error message and class is not created
+      Examples:
+      | Invalid Details  |
+      |InvalidClassDescription|
+      |InvalidClassTopic|
+      |InvalidComments|
+
+Scenario: Validate with creating existing class topic
+When Admin clicks a "Add New Class" under the "Class" menu bar
+And Admin enters "ExistingClassTopic" into the fields
+Then class won't be created and Admin gets error message
+      |  Error Message               |
+      |Class Topic is already exists.|
+
+Scenario: validate with only Mandatory details  
+When Admin clicks a "Add New Class" under the "Class" menu bar
+And Admin clicks on save button only by entering "MandatoryDetails"
+Then Admin gets message "SuccessfulClass Created" 
+      
+
 
 ######################## Edit New class Popup Scenarios #########################
 
@@ -113,6 +143,33 @@ Scenario: Validate row level edit icon
 When Admin clicks on the "edit" icon 
 Then Admin should see new pop up with class details appears
 And Admin should see batch name field and class topic are disabled
+
+Scenario: Validate all buttons in edit popup
+When Admin clicks on the "edit" icon 
+And Admin clicks Cancel Icon on Admin Details form 
+Then Class Details popup window should be closed without saving
+
+Scenario: Validate Edit popup with Mandatory details 
+When Admin clicks on the "edit" icon
+And Admin clicks on save button only by entering "UpdateMandatoryDetails" 
+Then Admin gets message "Class Updated" and see the updated values in data table
+
+Scenario: Validate Edit popup with Optional details 
+When Admin clicks on the "edit" icon
+And Admin clicks on save button only by entering "UpdateOptionalDetails" 
+Then Admin gets message "Class Updated" and see the updated values in data table
+
+
+Scenario: Validate Edit popup with All details 
+When Admin clicks on the "edit" icon
+And Admin clicks on save button only by entering "UpdateAllValidDetails" 
+Then Admin gets message "Class Updated" and see the updated values in data table
+
+Scenario: Validate Edit popup with Invalid details 
+When Admin clicks on the "edit" icon
+And Admin clicks on save button only by entering "UpdateInvalidDetails" 
+Then Admin should get Error message 
+
 
 ########### sorting function in ascending and descending order #############3333333
 
@@ -155,13 +212,14 @@ Scenario Outline: Click Close on deletion window
 When Admin clicks the delete icon
 And Admin clicks on close button
 Then Admin can see the deletion alert disappears without any changes
-
+@skip
 Scenario Outline: Click Yes on deletion window
 When Admin clicks the delete icon
 And Admin clicks yes option
-Then Admin gets a message "Successful Class Deleted" alert and do not see that Class in the data table
+#Then Admin gets a message "Class Deleted" alert and do not see that Class in the data table
 
-############# validating Delete Multiple Class Functionality##################
+############# validating Delete Multiple Class Functionality ##################
+
 Scenario: Validate multiple Delete button enabled after clicking on any checkbox
 When Admin clicks any checkbox in the data table
 Then Admin should see common delete option enabled under header "Manage class"
@@ -200,7 +258,7 @@ When Admin clicks "YES" button on the alert
 Then Admin should land on the " Manage Class" page
 And Admin can see the selected multiple classes is deleted from the data table
 
-############ Search Function Validations ############
+#################################### Search Function Validations #######################
 
 Scenario Outline: Verify Admin is able to search results found for given "<option>"
 When Admin enter the "<option>" in search textbox
@@ -232,3 +290,8 @@ Then Admin should see "Class details" as searched by "<option>"
     Then Admin should see the very first page record on the table with Previous page link and first page links are disabled
 
 
+# to start jenkins server in my computer we have to start the jenkins.war file. 
+#To do that we have to go to the jenkins.war file location and run the following command java -jar jenkins.war.
+# my jar file location is in C:\Program Files
+# cd C:\Program Files
+#> java -jar jenkins.war

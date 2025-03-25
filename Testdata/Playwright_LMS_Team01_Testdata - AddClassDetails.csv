@@ -1,7 +1,7 @@
-ScenarioName,Batch Name,Class Topic,Class Description,Select Class Dates,No of Classes,Staff Name,Status,Comments,Notes,Recording
-MandatoryDetails,,,,,,,,,,
-OptionalDEtails,,,,,,,,,,
-InvalidBatchName,,,,,,,,,,
-InvalidClassTopic ,,,,,,,,,,
-InvalidDetails,,,,,,,,,,
-EmptyFields,,,,,,,,,,
+ScenarioName,Batch Name,Class Topic,Class Description,Select Class Dates,Staff Name,Status,Comments,Notes,Recording
+MandatoryDetails,Java Batch 01,Java Strings,,03/28/2025,Getha Takur, Active ,,,
+OptionalDetails,,,Java is a oops language,,,,Java Strings,No Class on Weekends,c:/user/LMS
+InvalidClassDescription,JavaScript,Strings,@##$%^&,03/28/2025,Getha Takur, Inactive ,Datatypes,,
+InvalidClassTopic ,Java Batch 01,123e4r,It is a scripting language,03/31/2025,Getha Takur, Active ,,,
+InvalidComments,JavaScript,Strings,It is a scripting language,03/28/2025,Getha Takur, Inactive ,86yff,No Class on Weekends,c:/user/LMS
+ExistingClassTopic,Micro service -03,playwright,API Testing,04/07/2025,Kevin Thomas, Active ,Datatypes,No Class on Weekends,c:/user/LMS
