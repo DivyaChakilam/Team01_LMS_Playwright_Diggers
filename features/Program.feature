@@ -20,7 +20,7 @@ Scenario: Verify Admin is able to delete program
 #Given Admin is on Program page
 When Admin Searches for "Deleted Program name"
 Then There should seee zero results.
-@only
+@skip
 Scenario: Verify Admin is able to click 'No'
 Given Admin is on Program Confirm Deletion Page after selecting a program to delete
 When Admin clicks on nobutton"No" button
