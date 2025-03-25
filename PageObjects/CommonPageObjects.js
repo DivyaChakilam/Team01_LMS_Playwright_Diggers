@@ -104,6 +104,7 @@ class CommonPage{
         );
         return ascendingOrderList;
       }
+//handling sorting for date field
       //handling sorting for date field
       async getDateAscendingOrderList(originalList) {
         // Sort the original list in case-insensitive order
@@ -125,6 +126,7 @@ class CommonPage{
         );
         return ascendingOrderList;
       }
+
       async getDateDescendingOrderList(originalList) {
         // Sort the original list in case-insensitive order
         const descendingOrderList = [...originalList].sort((a, b) => {
@@ -213,7 +215,9 @@ class CommonPage{
       async getfirstPageLoc()
       {
         return await this.firstPageLoc;
-      }
+      }  
+
+      
 
       
 

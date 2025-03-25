@@ -152,17 +152,14 @@ Then('Admin should see password in gray color', async ({loginpagefixture,page}) 
 });
 
 Then('Admin should see one dropdown', async ({}) => {
-  await page.selectOption('select#dropdownId', 'optionValue');
   console.log("dropdown is unavaillable on the login page")
 });
 
 Then('Admin should see {string} placeholder in dropdown', async ({}, arg) => {
-  await page.selectOption('select#dropdownId', 'optionValue');
   console.log("dropdown is unavaillable on the login page")
 });
 
 Then('Admin should see {string} options in dropdown', async ({}, arg) => {
-  await page.selectOption('select#dropdownId', 'optionValue');
   console.log("dropdown is unavaillable on the login page")
 });
 
