@@ -7,4 +7,6 @@ node_modules/
 /playwright/.cache/
 /screenshots/
 /.features-gen/
+/allure-results/
 /.features-gen/features/
+/allure-report/
