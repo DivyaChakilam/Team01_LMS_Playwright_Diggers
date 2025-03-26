@@ -23,7 +23,9 @@ class CommonPage{
         this.lastPageLoc = page.locator('span.pi-angle-double-right');
         this.firstPageLoc = page.locator('span.pi-angle-double-left');
         this.previousPageLoc = page.locator('span.pi-angle-left');
-        this.firstRow = page.locator('//tbody/tr[1]');
+
+
+
     }
 
     async validLogin() {
@@ -185,16 +187,9 @@ class CommonPage{
         const isMatch = searchResults.some(text => text.includes(expectedValue));
         return isMatch;  // Return the result (true/false)
       }
-      async getFirstRow()
-      {
-        const firstRow = await this.firstRow.textContent();
-        return firstRow;
-      }
+
       async goToNextPage(){
-       // Get first row data before clicking Next
-       const firstRowBefore = await this.firstRow.textContent();
         await this.nextPageLoc.click();
-        const firstRowAfter = await this.firstRow.textContent();
       }
       async goToLastPage(){
         await this.lastPageLoc.click();
