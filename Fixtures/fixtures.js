@@ -3,7 +3,7 @@ import { Loginpage } from '../PageObjects/LoginPageObjects';
 import { Homepage } from '../PageObjects/HomePageObjects';
 import { ClassPage } from '../PageObjects/ClassPageObjects';
 import { Logoutpage } from '../PageObjects/LogoutPageObjects';
-import { ProgramPage } from '../PageObjects/PragramPageObjects';
+import { ProgramPage } from '../PageObjects/ProgramPageObjects';
 import { BatchPage } from '../PageObjects/BatchPageObjects';
 //import { CommonPage } from '../PageObjects/CommonPageObjects';
 import {CommonPage } from '../PageObjects/CommonPageObjects';
