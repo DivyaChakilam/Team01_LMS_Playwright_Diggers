@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { excelReader } = require('../utils/ExcelReaderUtil');
+const { excelReader } = require('../Utils/ExcelReaderUtil');
 exports.ClassPage=
 class ClassPage {
     constructor(page) {
@@ -213,7 +213,7 @@ class ClassPage {
         for (const [field, value] of fieldsToFill) {
             // **Skip the field if the value is null or empty**
             if (value === null || value === "") {
-                console.log(`Skipping field: ${field} (Value is null/empty)`);
+                //console.log(`Skipping field: ${field} (Value is null/empty)`);
                 continue;
             }
     

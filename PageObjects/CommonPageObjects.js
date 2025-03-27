@@ -28,13 +28,6 @@ class CommonPage{
 
     async validLogin() {
         await this.page.goto(process.env.baseUrl);
-        // await this.page.context().clearCookies();
-        // await this.page.reload();
-        console.log('Loaded Username:', process.env.user_Name);
-        console.log('Loaded Password:', process.env.passWord);
-        // await this.page.evaluate(() => {
-        //     document.querySelector("#username").setAttribute("autocomplete", "off");
-        // });
         await this.user.fill(process.env.user_Name);
         await this.password.fill(process.env.passWord);
         await this.login.click();
@@ -47,12 +40,12 @@ class CommonPage{
     async getPageName()
     {
         const pagename = await this.pageNameLoc.first().textContent();
-        console.log(pagename);
+       // console.log(pagename);
         return pagename;
     }
     async getTitle() {
         const title = await this.titleLocator;  // Await the title() method
-        console.log(title); // Log the title
+        //console.log(title); // Log the title
         return title; // Return the title
     }
     async headerCheck(headerName)
