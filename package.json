@@ -2,7 +2,10 @@
   "name": "team01_lms_playwright_diggers",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "bddgen": "npx bddgen && npx playwright test",
+    "playwright-test": "npx playwright test"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
